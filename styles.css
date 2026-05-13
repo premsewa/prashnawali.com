@@ -228,7 +228,13 @@ body {
   box-shadow: 0 2px 8px rgba(200, 80, 30, 0.18);
 }
 
-.cell:active { transform: scale(0.94); }
+.cell:active {
+  background: var(--saffron);
+  color: #fff;
+  border-color: var(--saffron);
+  box-shadow: 0 2px 8px rgba(200, 80, 30, 0.28);
+  transform: scale(0.94);
+}
 
 .cell:focus-visible {
   outline: 2px solid var(--saffron);
@@ -495,6 +501,10 @@ body {
   background: var(--saffron-soft);
 }
 
+/* SVG inside the close button must not capture pointer events — otherwise the
+   tap target becomes the path/svg and the data-close handler misses. */
+.modal-close svg { pointer-events: none; }
+
 .modal-tag {
   display: inline-block;
   font-size: 11px;
@@ -626,10 +636,16 @@ body {
     border-radius: 3px;
   }
 
-  /* Reduce hover bounce on touch — hover is sticky on mobile and feels off. */
+  /* On touch devices, hover is sticky — disable the lift but keep the colour
+     change so the most recently tapped cell still reads as "selected". */
   .cell:hover {
     transform: none;
     box-shadow: none;
+  }
+
+  /* Strong tap feedback while a finger is down on a cell. */
+  .cell:active {
+    transform: scale(0.92);
   }
 
   .modal { padding: 14px; }

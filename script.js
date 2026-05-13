@@ -95,9 +95,10 @@
     }
   }
 
-  // Click on backdrop or X closes.
+  // Click on backdrop or X closes. Use closest() so taps on the SVG icon inside
+  // the close button still resolve to the button's data-close attribute.
   modal.addEventListener("click", (e) => {
-    if (e.target.dataset.close !== undefined) closeModal();
+    if (e.target.closest("[data-close]")) closeModal();
   });
 
   // Escape closes.
