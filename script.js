@@ -119,4 +119,17 @@
       closeModal();
     }
   });
+
+  // ===== Theme toggle =====
+  const themeToggle = document.getElementById("theme-toggle");
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      const explicit = document.documentElement.getAttribute("data-theme");
+      const systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const currentlyDark = explicit ? explicit === "dark" : systemDark;
+      const next = currentlyDark ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    });
+  }
 })();

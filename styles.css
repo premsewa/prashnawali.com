@@ -1,6 +1,7 @@
 :root {
   --bg: #faf6ef;
   --bg-elevated: #ffffff;
+  --cell-bg: #fdfaf5;
   --ink: #2a2521;
   --ink-soft: #5e544b;
   --ink-muted: #8a8079;
@@ -12,6 +13,17 @@
   --green: #5a7a3a;
   --amber: #b9831f;
   --red: #b14034;
+  --backdrop: rgba(30, 18, 10, 0.55);
+  --sentiment-aus-bg: #e7f0dc;
+  --sentiment-aus-fg: var(--green);
+  --sentiment-inaus-bg: #f6dad6;
+  --sentiment-inaus-fg: var(--red);
+  --sentiment-mixed-bg: #f4e6c8;
+  --sentiment-mixed-fg: var(--amber);
+  --sentiment-caution-bg: #fbe6cf;
+  --sentiment-caution-fg: var(--amber);
+  --sentiment-neutral-bg: #e8e3da;
+  --sentiment-neutral-fg: var(--ink-soft);
   --shadow-sm: 0 1px 2px rgba(60, 40, 20, 0.04);
   --shadow-md: 0 4px 18px rgba(60, 40, 20, 0.08);
   --shadow-lg: 0 22px 60px rgba(40, 25, 10, 0.22);
@@ -20,6 +32,38 @@
   --radius-lg: 18px;
   --font-hi: "Noto Serif Devanagari", "Mangal", serif;
   --font-en: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Dark theme — set explicitly via JS, or matches system pref when no user override. */
+:root[data-theme="dark"] {
+  --bg: #18130f;
+  --bg-elevated: #221d18;
+  --cell-bg: #2a241e;
+  --ink: #f0e6d6;
+  --ink-soft: #c2b5a3;
+  --ink-muted: #8e8270;
+  --line: #2f2823;
+  --line-strong: #443a31;
+  --saffron: #e36f3c;
+  --saffron-soft: #3d2818;
+  --gold: #d4a04a;
+  --green: #91b56b;
+  --amber: #d6a847;
+  --red: #dc6e58;
+  --backdrop: rgba(0, 0, 0, 0.72);
+  --sentiment-aus-bg: #1e2e15;
+  --sentiment-aus-fg: #a3c97a;
+  --sentiment-inaus-bg: #3a1f1c;
+  --sentiment-inaus-fg: #e07d68;
+  --sentiment-mixed-bg: #3a2c12;
+  --sentiment-mixed-fg: #e0b65a;
+  --sentiment-caution-bg: #3d2918;
+  --sentiment-caution-fg: #e0b65a;
+  --sentiment-neutral-bg: #2a251f;
+  --sentiment-neutral-fg: var(--ink-soft);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 18px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 22px 60px rgba(0, 0, 0, 0.65);
 }
 
 * { box-sizing: border-box; }
@@ -39,6 +83,13 @@ body {
     radial-gradient(circle at 12% 8%, rgba(200, 80, 30, 0.05), transparent 40%),
     radial-gradient(circle at 88% 92%, rgba(176, 134, 40, 0.05), transparent 40%);
   min-height: 100vh;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+:root[data-theme="dark"] body {
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(227, 111, 60, 0.08), transparent 40%),
+    radial-gradient(circle at 88% 92%, rgba(212, 160, 74, 0.06), transparent 40%);
 }
 
 .page {
@@ -207,7 +258,7 @@ body {
   font-size: clamp(10px, 1.6vw, 18px);
   line-height: 1;
   color: var(--ink);
-  background: #fdfaf5;
+  background: var(--cell-bg);
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
   cursor: pointer;
@@ -361,11 +412,11 @@ body {
   color: var(--saffron);
 }
 
-.archive-tag.sentiment-auspicious { background: #e7f0dc; color: var(--green); }
-.archive-tag.sentiment-inauspicious { background: #f6dad6; color: var(--red); }
-.archive-tag.sentiment-mixed { background: #f4e6c8; color: var(--amber); }
-.archive-tag.sentiment-caution { background: #fbe6cf; color: var(--amber); }
-.archive-tag.sentiment-neutral { background: #e8e3da; color: var(--ink-soft); }
+.archive-tag.sentiment-auspicious { background: var(--sentiment-aus-bg); color: var(--sentiment-aus-fg); }
+.archive-tag.sentiment-inauspicious { background: var(--sentiment-inaus-bg); color: var(--sentiment-inaus-fg); }
+.archive-tag.sentiment-mixed { background: var(--sentiment-mixed-bg); color: var(--sentiment-mixed-fg); }
+.archive-tag.sentiment-caution { background: var(--sentiment-caution-bg); color: var(--sentiment-caution-fg); }
+.archive-tag.sentiment-neutral { background: var(--sentiment-neutral-bg); color: var(--sentiment-neutral-fg); }
 
 .archive-verse {
   font-family: var(--font-hi);
@@ -470,7 +521,7 @@ body {
 .modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(30, 18, 10, 0.55);
+  background: var(--backdrop);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
@@ -541,11 +592,11 @@ body {
   color: var(--saffron);
   border: 1px solid transparent;
 }
-.modal-tag.sentiment-auspicious { background: #e7f0dc; color: var(--green); }
-.modal-tag.sentiment-inauspicious { background: #f6dad6; color: var(--red); }
-.modal-tag.sentiment-mixed { background: #f4e6c8; color: var(--amber); }
-.modal-tag.sentiment-caution { background: #fbe6cf; color: var(--amber); }
-.modal-tag.sentiment-neutral { background: #e8e3da; color: var(--ink-soft); }
+.modal-tag.sentiment-auspicious { background: var(--sentiment-aus-bg); color: var(--sentiment-aus-fg); }
+.modal-tag.sentiment-inauspicious { background: var(--sentiment-inaus-bg); color: var(--sentiment-inaus-fg); }
+.modal-tag.sentiment-mixed { background: var(--sentiment-mixed-bg); color: var(--sentiment-mixed-fg); }
+.modal-tag.sentiment-caution { background: var(--sentiment-caution-bg); color: var(--sentiment-caution-fg); }
+.modal-tag.sentiment-neutral { background: var(--sentiment-neutral-bg); color: var(--sentiment-neutral-fg); }
 
 .modal-chaupai {
   font-family: var(--font-hi);
@@ -727,4 +778,43 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .modal, .modal-card, .cell { transition: none !important; }
+}
+
+/* ===== Theme toggle ===== */
+.theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 60;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--bg-elevated);
+  color: var(--ink-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  transition: color 140ms ease, border-color 140ms ease, background 140ms ease, transform 140ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: hover) {
+  .theme-toggle:hover {
+    color: var(--saffron);
+    border-color: var(--saffron);
+  }
+}
+
+.theme-toggle:active { transform: scale(0.92); }
+
+.theme-toggle .icon-sun { display: none; }
+.theme-toggle .icon-moon { display: block; }
+:root[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+:root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+@media (max-width: 640px) {
+  .theme-toggle { top: 12px; right: 12px; width: 36px; height: 36px; }
 }
