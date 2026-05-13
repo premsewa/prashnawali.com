@@ -15,6 +15,7 @@
   const elSentiment = document.getElementById("modal-sentiment");
 
   let lastFocused = null;
+  let selectedCell = null;
 
   // ===== Build grid =====
   const letters = buildGridLetters();
@@ -59,6 +60,13 @@
     if (!target) return;
     const idx = parseInt(target.dataset.index, 10);
     const chaupai = CHAUPAIS[idx % 9];
+
+    // Highlight the chosen cell — persists through the modal's lifetime
+    // so the user gets uninterrupted visual feedback from the tap.
+    if (selectedCell) selectedCell.classList.remove("selected");
+    target.classList.add("selected");
+    selectedCell = target;
+
     openModal(chaupai);
   });
 
@@ -90,6 +98,10 @@
     if (modal.getAttribute("aria-hidden") === "true") return;
     modal.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
+    if (selectedCell) {
+      selectedCell.classList.remove("selected");
+      selectedCell = null;
+    }
     if (lastFocused && typeof lastFocused.focus === "function") {
       lastFocused.focus();
     }
