@@ -220,12 +220,14 @@ body {
   padding: 0;
 }
 
-.cell:hover {
-  background: var(--saffron-soft);
-  border-color: var(--saffron);
-  color: var(--saffron);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(200, 80, 30, 0.18);
+@media (hover: hover) {
+  .cell:hover {
+    background: var(--saffron-soft);
+    border-color: var(--saffron);
+    color: var(--saffron);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(200, 80, 30, 0.18);
+  }
 }
 
 .cell:active {
@@ -280,7 +282,10 @@ body {
 }
 
 .archive-details[open] .archive-summary::after { transform: rotate(90deg); }
-.archive-summary:hover { background: rgba(244, 220, 200, 0.4); }
+
+@media (hover: hover) {
+  .archive-summary:hover { background: rgba(244, 220, 200, 0.4); }
+}
 .archive-summary .sep { color: var(--line-strong); }
 
 .archive-h2 {
@@ -495,10 +500,19 @@ body {
   justify-content: center;
   transition: color 140ms ease, border-color 140ms ease, background 140ms ease;
 }
-.modal-close:hover {
+@media (hover: hover) {
+  .modal-close:hover {
+    color: var(--saffron);
+    border-color: var(--saffron);
+    background: var(--saffron-soft);
+  }
+}
+
+.modal-close:active {
   color: var(--saffron);
   border-color: var(--saffron);
   background: var(--saffron-soft);
+  transform: scale(0.94);
 }
 
 /* SVG inside the close button must not capture pointer events — otherwise the
